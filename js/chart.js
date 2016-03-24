@@ -3,6 +3,8 @@ var sensor = {"pressure": 500}
 
 document.addEventListener('DOMContentLoaded', function(){
 
+var gauge = (function(){
+
 var w = 960,
     h = 500,
     tau = Math.PI * 2,
@@ -34,4 +36,10 @@ var bar = svg.selectAll('path')
     .append('path')
     .attr("d", arc)
     .style('fill', bad)
+
+    socket.on('data', function(d){
+      bar.transition().attr("d", arc)
+    })
+
+  })
 })
