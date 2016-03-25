@@ -12,6 +12,10 @@ var scale = d3.scale.linear()
   .domain([0, 1023])
   .range([0.01, Math.PI])
 
+var color = d3.scale.linear()
+  .domain([0,1023])
+  .range([bad, good])
+
 var arc = d3.svg.arc()
   .innerRadius(180)
   .outerRadius(240)
@@ -34,9 +38,10 @@ function update(data){
   bar.enter()
       .append('path')
       .attr("d", arc)
-      .style('fill', bad)
+      .style("fill", bad)
 
   bar.attr("d", arc)
+    .style("fill", function(d){return color(d.pressure)})
 
   bar.exit().remove()
 }
@@ -44,6 +49,7 @@ function update(data){
 update({"pressure": 500})
 
 socket.on('data', function(d){
+  console.log(d)
   update(d)
 })
 
