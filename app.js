@@ -13,7 +13,7 @@ board.on("ready", function() {
 	this.pinMode(0, five.Pin.ANALOG)
 	this.analogRead(0, voltage =>{
 		if(last !== voltage){
-			io.emit("data", {"value": voltage})
+			io.emit("data", {"pressure": voltage})
 			last = voltage
 		}
 	})
