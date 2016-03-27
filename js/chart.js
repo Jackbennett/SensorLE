@@ -5,10 +5,10 @@ window.gauge = function(options){
   options = options || {}
   
   var d3 = window.d3
-  var w, h, 
+  var w = 960
+  var h = 500
   var innerRadius = options.innerRadius || 180
   var outerRadius = options.outerRadius || 240 
-  var data = options.data || []
   
   var arc = d3.svg.arc()
     .innerRadius(innerRadius)
@@ -27,8 +27,14 @@ window.gauge = function(options){
     .range(['#BF4D28', '#E6AC27'])
   
   var svg = d3.select("#chart").append("svg")
+    .attr('width', w)
+    .attr('height', h)
+    .append('g')
+      .attr('transform', 'translate(' + w /2 + ', ' + h / 2 + '), rotate(-90)')
+
   
-  function chart(){
+  function update(data){
+    var data = data || options.data || {pressure: 250} // Mock Data
     var bar = svg.selectAll('path')
       .data([data])
 
@@ -37,32 +43,25 @@ window.gauge = function(options){
       .attr("d", arc)
 
     bar.attr("d", arc)
-      .style("fill", function(d){return color(d.pressure)})
+      .style("fill", function(d){return fill(d.pressure)})
 
     bar.exit().remove()
   }
+
+  return {update: update}
 }
 
 
 document.addEventListener('DOMContentLoaded', function(){
+  var pressure = gauge()
+    pressure.update({pressure: 20})
 
-var w = 960,
-    h = 500,
+  var demo = gauge()
+    demo.update({pressure:1000})
 
-
-
-var svg = d3.select('#chart')
-  .append('svg')
-    .attr('width', w)
-    .attr('height', h)
-  .append('g')
-    .attr('transform', 'translate(' + w /2 + ', ' + h / 2 + '), rotate(-90)')
-
-update({"pressure": 500})
-
-socket.on('data', function(d){
-  console.log(d)
-  update(d)
+  socket.on('data', function(d){
+    console.log(d)
+    pressure.update(d)
+  })
 })
 
-})
