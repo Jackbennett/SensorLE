@@ -19,6 +19,6 @@ board.on("ready", function() {
 	})
 })
 
-http.listen(3000, '0.0.0.0', () =>{
+http.listen(3000, () =>{
 	console.log('listening')
 })
