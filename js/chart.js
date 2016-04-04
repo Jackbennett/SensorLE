@@ -1,4 +1,3 @@
-window.socket = io()
 window.gauge = function(options){
   'use strict'
   
@@ -19,11 +18,11 @@ window.gauge = function(options){
     })
   
   var scale = d3.scale.linear()
-    .domain([0, 1023])
+    .domain([0, 255])
     .range([0.01, Math.PI])
   
   var fill = d3.scale.linear()
-    .domain([0,1023])
+    .domain([0,255])
     .range(['#BF4D28', '#E6AC27'])
   
   var svg = d3.select("#chart").append("svg")
@@ -50,18 +49,3 @@ window.gauge = function(options){
 
   return {update: update}
 }
-
-
-document.addEventListener('DOMContentLoaded', function(){
-  var pressure = gauge()
-    pressure.update({pressure: 20})
-
-  var demo = gauge()
-    demo.update({pressure:1000})
-
-  socket.on('data', function(d){
-    console.log(d)
-    pressure.update(d)
-  })
-})
-
