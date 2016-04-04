@@ -47,5 +47,7 @@ window.gauge = function(options){
     bar.exit().remove()
   }
 
+  update()
+
   return {update: update}
 }

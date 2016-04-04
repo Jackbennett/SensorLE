@@ -2,7 +2,6 @@ window.socket = io()
 
 document.addEventListener('DOMContentLoaded', function(){
   var pressure = gauge()
-  pressure.update({pressure: 255})
   socket.on('data', function(d){
     console.log(d)
     pressure.update(d)
