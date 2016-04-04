@@ -4,8 +4,8 @@ window.gauge = function(options){
   options = options || {}
   
   var d3 = window.d3
-  var w = 960
-  var h = 500
+  var w = 500
+  var h = 250
   var innerRadius = options.innerRadius || 180
   var outerRadius = options.outerRadius || 240 
   
@@ -29,7 +29,7 @@ window.gauge = function(options){
     .attr('width', w)
     .attr('height', h)
     .append('g')
-      .attr('transform', 'translate(' + w /2 + ', ' + h / 2 + '), rotate(-90)')
+      .attr('transform', 'translate(' + w /2 + ', ' + h + '), rotate(-90)')
 
   
   function update(data){
