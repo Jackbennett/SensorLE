@@ -1,12 +1,12 @@
 {
   "name": "PressureTransducerLE",
   "version": "1.0.0",
-  "description": "",
+  "description": "Read and display a bluetooth LE sensor feed",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["Bluetooth", "Low Energy", "chart", "d3"],
   "author": "",
   "license": "ISC",
   "dependencies": {
